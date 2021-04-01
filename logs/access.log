@@ -1,0 +1,8 @@
+
+2021-03-31 23:16:03 [백엔드 맛보기] info : Server listening on 5000
+2021-03-31 23:17:03 [백엔드 맛보기] info : Server listening on 5000
+2021-03-31 23:17:03 [백엔드 맛보기] info : GET / 2OO 유저 화면으로 이동
+2021-03-31 23:17:03 [백엔드 맛보기] info : Server listening on 5000
+2021-03-31 23:18:03 [백엔드 맛보기] info : Server listening on 5000
+2021-03-31 23:20:03 [백엔드 맛보기] info : Server listening on 5000
+2021-03-31 23:20:03 [백엔드 맛보기] info : POST /user 2OO Response: "success : undefined, msg : undefined"

@@ -58,25 +58,29 @@ export const putUser = async (req, res, next) => {
   try {
     const {
       params: { userId },
-      body: { age },
+      body: { age, name },
     } = req;
 
-    if (!mongoose.isValidObjectId(userId)) {
+    if (!mongoose.isValidObjectId(userId))
       return res.status(400).send({ error: "invalid userId" });
-    }
 
-    if (!age) {
-      return res.status(400).send({ error: "age is required" });
-    }
-    if (typeof age !== "number") {
+    if (!age && !name)
+      return res.status(400).send({ error: "age or name is required" });
+
+    if (age && typeof age !== "number")
       return res.status(400).send({ error: "age must be a number" });
+
+    if (
+      (name && typeof name.first !== "string") ||
+      typeof name.last !== "string"
+    ) {
+      return res.status(400).send({ error: "name must be a string" });
     }
 
-    const newUser = await User.findByIdAndUpdate(
-      userId,
-      { age },
-      { new: true }
-    );
+    const updateBody = req.body;
+    const newUser = await User.findByIdAndUpdate(userId, updateBody, {
+      new: true,
+    });
 
     return res.status(200).json({ user: newUser });
   } catch (error) {

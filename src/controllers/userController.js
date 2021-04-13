@@ -1,6 +1,6 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
-import User from "../models/User";
+import User from '../models/User';
 
 export const getUser = async (req, res, next) => {
   try {
@@ -19,11 +19,11 @@ export const postUser = async (req, res, next) => {
     } = req;
 
     if (!username) {
-      return res.status(400).json({ err: "username is required" });
+      return res.status(400).json({ err: 'username is required' });
     }
 
     if (!name || !name.first || !name.last) {
-      return res.status(400).json({ err: "name is required" });
+      return res.status(400).json({ err: 'name is required' });
     }
 
     const user = new User(body);
@@ -44,7 +44,7 @@ export const getUserId = async (req, res, next) => {
 
     // isValidObjectId :  Returns true if Mongoose can cast the given value to an ObjectId, or false otherwise.
     if (!mongoose.isValidObjectId(userId)) {
-      return res.status(400).send({ error: "invalid userId" });
+      return res.status(400).send({ error: 'invalid userId' });
     }
 
     const user = await User.findById(userId);
@@ -61,28 +61,23 @@ export const putUser = async (req, res, next) => {
       body: { age, name },
     } = req;
 
-    if (!mongoose.isValidObjectId(userId))
-      return res.status(400).send({ error: "invalid userId" });
+    if (!mongoose.isValidObjectId(userId)) return res.status(400).send({ error: 'invalid userId' });
 
-    if (!age && !name)
-      return res.status(400).send({ error: "age or name is required" });
+    if (!age && !name) return res.status(400).send({ error: 'age or name is required' });
 
-    if (age && typeof age !== "number")
-      return res.status(400).send({ error: "age must be a number" });
+    if (age && typeof age !== 'number') return res.status(400).send({ error: 'age must be a number' });
 
-    if (
-      (name && typeof name.first !== "string") ||
-      typeof name.last !== "string"
-    ) {
-      return res.status(400).send({ error: "name must be a string" });
+    if (name && (typeof name.first !== 'string' || typeof name.last !== 'string')) {
+      return res.status(400).send({ error: 'name must be a string' });
     }
 
-    const updateBody = req.body;
-    const newUser = await User.findByIdAndUpdate(userId, updateBody, {
-      new: true,
-    });
+    const user = await User.findById(userId);
 
-    return res.status(200).json({ user: newUser });
+    if (name) user.name = name;
+    if (age) user.age = age;
+    await user.save();
+
+    return res.status(200).json({ user });
   } catch (error) {
     next(error);
   }
@@ -95,7 +90,7 @@ export const deleteUser = async (req, res, next) => {
     } = req;
 
     if (!mongoose.isValidObjectId(userId)) {
-      return res.status(400).json({ error: "invalid userId" });
+      return res.status(400).json({ error: 'invalid userId' });
     }
 
     const user = await User.findByIdAndDelete(userId);

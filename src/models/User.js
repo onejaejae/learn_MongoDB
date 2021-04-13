@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
 const userSchema = new mongoose.Schema(
   {
@@ -16,9 +16,9 @@ const userSchema = new mongoose.Schema(
     age: Number,
     email: String,
   },
-  // timestamps는 createAt, updateAt을 자동으로 만들어준다.
-  { timestamps: true }
+  // timestamps는 mongoose가 createAt, updateAt을 자동으로 만들어준다.
+  { timestamps: true },
 );
 
-const User = mongoose.model("User", userSchema);
+const User = mongoose.model('User', userSchema);
 export default User;

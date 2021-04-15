@@ -5,8 +5,9 @@ import dotenv from 'dotenv';
 
 import routes from './routes';
 import userRouter from './routers/userRouter';
-import { accessLogStream } from '../config/log';
 import blogRouter from './routers/blogRouter';
+import commentRouter from './routers/commentRouter';
+import { accessLogStream } from '../config/log';
 
 const app = express();
 
@@ -21,6 +22,7 @@ app.use(morgan('common', { stream: accessLogStream }));
 // router
 app.use(routes.user, userRouter);
 app.use(routes.blog, blogRouter);
+app.use(routes.comment, commentRouter);
 
 app.use((err, req, res, next) => {
   console.log(err);

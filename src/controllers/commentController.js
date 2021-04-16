@@ -15,8 +15,9 @@ export const postComment = async (req, res, next) => {
     if (!mongoose.isValidObjectId(userId)) return res.status(400).send({ err: 'userId is invalid' });
     if (typeof content != 'string') return res.status(400).send({ err: 'content must be string' });
 
-    const blog = await Blog.findById(blogId);
-    const user = await User.findById(userId);
+    // 배열 해체할당(ES6)
+    // Promise.all()을 사용해 Response Time 개선
+    const [blog, user] = await Promise.all([await Blog.findById(blogId), await User.findById(userId)]);
 
     if (!blog) return res.status(400).send({ err: 'blog does not exist' });
     if (blog.isLive === false) return res.status(400).send({ err: 'blog is not available' });

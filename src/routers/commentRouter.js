@@ -1,9 +1,9 @@
 import express from 'express';
-import { postComment } from '../controllers/commentController';
+import { postComment, getComment } from '../controllers/commentController';
 
 const commentRouter = express.Router({ mergeParams: true });
 
-commentRouter.get('/');
+commentRouter.get('/', getComment);
 
 commentRouter.post('/', postComment);
 

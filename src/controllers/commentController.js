@@ -19,7 +19,9 @@ export const postComment = async (req, res, next) => {
     // Promise.all()을 사용해 Response Time 개선
     const [blog, user] = await Promise.all([await Blog.findById(blogId), await User.findById(userId)]);
 
+    //없는 blog에 댓글을 달 경우를 방지
     if (!blog) return res.status(400).send({ err: 'blog does not exist' });
+
     if (blog.isLive === false) return res.status(400).send({ err: 'blog is not available' });
     if (!user) return res.status(400).send({ err: 'user does not exist' });
 
@@ -31,6 +33,22 @@ export const postComment = async (req, res, next) => {
     await comment.save();
 
     return res.status(200).json({ comment });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const getComment = async (req, res, next) => {
+  try {
+    const {
+      params: { blogId },
+    } = req;
+
+    if (!mongoose.isValidObjectId(blogId)) return res.status(400).send({ err: 'blogId is invalid' });
+
+    const comment = await Comment.find({ blog: blogId }).populate('blog').populate('user');
+
+    res.status(200).json({ comment });
   } catch (error) {
     next(error);
   }

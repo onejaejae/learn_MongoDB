@@ -2,26 +2,53 @@ const axios = require('axios');
 
 console.log('client code running.');
 
+const URI = 'http://localhost:5000';
+
 const test = async () => {
+  console.time('loading time: ');
   let {
     data: { blogs },
-  } = await axios.get('http://localhost:5000/blog');
+  } = await axios.get(`${URI}/blog`);
 
-  blogs = await Promise.all(
-    blogs.map(async (blog) => {
-      try {
-        const res1 = await axios.get(`http://localhost:5000/user/${blog.user}`);
-        const res2 = await axios.get(`http://localhost:5000/blog/${blog._id}/comment`);
+  // blogs = await Promise.all(
+  //   blogs.map(async (blog) => {
+  //     try {
+  //       const [res1, res2] = await Promise.all([
+  //         axios.get(`${URI}/user/${blog.user}`),
+  //         axios.get(`${URI}/blog/${blog._id}/comment`),
+  //       ]);
 
-        blog.user = res1.data.user;
-        blog.comments = res2.data.comment;
-        return blog;
-      } catch (error) {
-        console.log(error.message);
-      }
-    }),
-  );
-  console.log({ blog: blogs[0] });
+  //       blog.user = res1.data.user;
+  //       blog.comments = await Promise.all(
+  //         res2.data.comment.map(async (comment) => {
+  //           const {
+  //             data: { user },
+  //           } = await axios.get(`${URI}/user/${comment.user}`);
+
+  //           comment.user = user;
+  //           return comment;
+  //         }),
+  //       );
+
+  //       return blog;
+  //     } catch (error) {
+  //       console.log(error.message);
+  //     }
+  //   }),
+  // );
+
+  // console.log(blogs[0]);
+  console.timeEnd('loading time: ');
 };
 
-test();
+const testGroup = async () => {
+  await test();
+  await test();
+  await test();
+  await test();
+  await test();
+  await test();
+  await test();
+};
+
+testGroup();

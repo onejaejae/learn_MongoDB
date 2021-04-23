@@ -46,7 +46,7 @@ export const getComment = async (req, res, next) => {
 
     if (!mongoose.isValidObjectId(blogId)) return res.status(400).send({ err: 'blogId is invalid' });
 
-    const comment = await Comment.find({ blog: blogId }).populate('blog').populate('user');
+    const comment = await Comment.find({ blog: blogId });
 
     res.status(200).json({ comment });
   } catch (error) {

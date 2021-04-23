@@ -8,6 +8,7 @@ export const generateFakeData = async (userCount, blogsPerUser, commentsPerUser)
   if (typeof blogsPerUser !== 'number' || blogsPerUser < 1) throw new Error('blogsPerUser must be a positive integer');
   if (typeof commentsPerUser !== 'number' || commentsPerUser < 1)
     throw new Error('commentsPerUser must be a positive integer');
+
   const users = [];
   const blogs = [];
   const comments = [];
@@ -27,13 +28,13 @@ export const generateFakeData = async (userCount, blogsPerUser, commentsPerUser)
     );
   }
 
-  users.map(async (user) => {
+  users.map((user) => {
     for (let i = 0; i < blogsPerUser; i++) {
       blogs.push(
         new Blog({
           title: faker.lorem.words(),
           content: faker.lorem.paragraphs(),
-          islive: true,
+          isLive: true,
           user,
         }),
       );

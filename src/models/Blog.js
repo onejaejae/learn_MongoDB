@@ -25,5 +25,14 @@ const blogSchema = new mongoose.Schema(
   { timestamps: true },
 );
 
+blogSchema.virtual('comments', {
+  ref: 'comment',
+  localField: '_id',
+  foreignField: 'blog',
+});
+
+blogSchema.set('toObject', { virtuals: true });
+blogSchema.set('toJSON', { virtuals: true });
+
 const Blog = mongoose.model('blog', blogSchema);
 export default Blog;

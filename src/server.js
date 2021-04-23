@@ -20,7 +20,7 @@ app.use(express.json());
 app.use(morgan('dev'));
 app.use(morgan('common', { stream: accessLogStream }));
 
-// faker
+//faker
 // const generateFake = async () => {
 //   await generateFakeData(100, 10, 300);
 // };

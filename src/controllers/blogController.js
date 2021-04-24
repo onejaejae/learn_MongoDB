@@ -35,7 +35,7 @@ export const postBlog = async (req, res, next) => {
       body: { user: userId, title, content, isLive },
     } = req;
 
-    if (!mongoose.isValidObjectId(user)) return res.status(400).send({ err: 'userId is invalid' });
+    if (!mongoose.isValidObjectId(userId)) return res.status(400).send({ err: 'userId is invalid' });
 
     const user = await User.findById(userId);
     if (!user) {
@@ -56,8 +56,8 @@ export const postBlog = async (req, res, next) => {
 
     if (isLive && typeof isLive !== 'boolean') return res.status(400).send({ err: 'isLive must be a boolean' });
 
-    // const blog = new Blog({...req.body, user})로 할 경우 클라이언트에서 user 정보를 볼 수 있게 된다. 저장 될 떄는 똑같이 objected id가 저장
-    const blog = new Blog(req.body);
+    const blog = new Blog({ ...req.body, user });
+    // const blog = new Blog(req.body);
     await blog.save();
 
     return res.status(200).json({ blog });

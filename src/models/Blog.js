@@ -1,12 +1,23 @@
 import mongoose from 'mongoose';
+import commentSchema from './Comment';
 
 const blogSchema = new mongoose.Schema(
   {
     user: {
-      type: mongoose.SchemaTypes.ObjectId,
-      required: true,
-      // ref는 mongoose.model()의 첫번째 인자와 같아야한다.
-      ref: 'user',
+      _id: {
+        type: mongoose.SchemaTypes.ObjectId,
+        required: true,
+        // ref는 mongoose.model()의 첫번째 인자와 같아야한다.
+        ref: 'user',
+      },
+      username: {
+        type: String,
+        required: true,
+      },
+      name: {
+        first: { type: String, required: true },
+        last: { type: String, required: true },
+      },
     },
     title: {
       type: String,
@@ -21,18 +32,19 @@ const blogSchema = new mongoose.Schema(
       required: true,
       default: false,
     },
+    comments: [commentSchema],
   },
   { timestamps: true },
 );
 
-blogSchema.virtual('comments', {
-  ref: 'comment',
-  localField: '_id',
-  foreignField: 'blog',
-});
+// blogSchema.virtual('comments', {
+//   ref: 'comment',
+//   localField: '_id',
+//   foreignField: 'blog',
+// });
 
-blogSchema.set('toObject', { virtuals: true });
-blogSchema.set('toJSON', { virtuals: true });
+// blogSchema.set('toObject', { virtuals: true });
+// blogSchema.set('toJSON', { virtuals: true });
 
 const Blog = mongoose.model('blog', blogSchema);
 export default Blog;

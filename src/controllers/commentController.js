@@ -30,7 +30,13 @@ export const postComment = async (req, res, next) => {
 
     // comment instance 생성, db저장
     const comment = new Comment(variable);
-    await comment.save();
+
+    // Promise.all()을 사용해 Response Time 개선
+    await Promise.all([
+      comment.save(),
+      //$push 사용
+      Blog.updateOne({ _id: blogId }, { $push: { comments: comment } }),
+    ]);
 
     return res.status(200).json({ comment });
   } catch (error) {

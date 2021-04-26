@@ -3,9 +3,20 @@ import mongoose from 'mongoose';
 export const commentSchema = new mongoose.Schema(
   {
     user: {
-      type: mongoose.SchemaTypes.ObjectId,
-      required: true,
-      ref: 'user',
+      _id: {
+        type: mongoose.SchemaTypes.ObjectId,
+        required: true,
+        // ref는 mongoose.model()의 첫번째 인자와 같아야한다.
+        ref: 'user',
+      },
+      username: {
+        type: String,
+        required: true,
+      },
+      name: {
+        first: { type: String, required: true },
+        last: { type: String, required: true },
+      },
     },
     blog: {
       type: mongoose.SchemaTypes.ObjectId,

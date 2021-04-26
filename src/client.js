@@ -6,9 +6,14 @@ const URI = 'http://localhost:5000';
 
 const test = async () => {
   console.time('loading time: ');
-  let {
-    data: { blogs },
-  } = await axios.get(`${URI}/blog`);
+
+  try {
+    let {
+      data: { blogs },
+    } = await axios.get(`${URI}/blog`);
+  } catch (error) {
+    console.log(error);
+  }
 
   // blogs = await Promise.all(
   //   blogs.map(async (blog) => {
@@ -37,18 +42,22 @@ const test = async () => {
   //   }),
   // );
 
-  // console.log(blogs[0]);
+  //console.dir(blogs[0], { depth: 10 });
   console.timeEnd('loading time: ');
 };
 
 const testGroup = async () => {
-  await test();
-  await test();
-  await test();
-  await test();
-  await test();
-  await test();
-  await test();
+  try {
+    await test();
+    await test();
+    await test();
+    await test();
+    await test();
+    await test();
+    await test();
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 testGroup();

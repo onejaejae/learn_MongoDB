@@ -1,5 +1,5 @@
 const faker = require('faker');
-const { User } = require('./src/models');
+import User from './src/models/User';
 const axios = require('axios');
 const URI = 'http://localhost:5000';
 
@@ -39,8 +39,8 @@ export const generateFakeData = async (userCount, blogsPerUser, commentsPerUser)
           axios.post(`${URI}/blog`, {
             title: faker.lorem.words(),
             content: faker.lorem.paragraphs(),
-            islive: true,
-            userId: user.id,
+            isLive: true,
+            user: user.id,
           }),
         );
       }
@@ -55,7 +55,7 @@ export const generateFakeData = async (userCount, blogsPerUser, commentsPerUser)
         comments.push(
           axios.post(`${URI}/blog/${newBlogs[index].data.blog._id}/comment`, {
             content: faker.lorem.sentence(),
-            userId: user.id,
+            user: user.id,
           }),
         );
       }

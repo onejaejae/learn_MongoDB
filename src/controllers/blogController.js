@@ -4,9 +4,7 @@ import Blog from '../models/Blog';
 
 export const getBlog = async (req, res, next) => {
   try {
-    let blogs = await Blog.find({})
-      .limit(20)
-      .populate([{ path: 'user' }, { path: 'comments', populate: { path: 'user' } }]);
+    let blogs = await Blog.find({}).limit(200);
 
     return res.status(200).json({ blogs });
   } catch (error) {

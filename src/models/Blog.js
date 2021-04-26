@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import commentSchema from './Comment';
+import { commentSchema } from './Comment';
 
 const blogSchema = new mongoose.Schema(
   {

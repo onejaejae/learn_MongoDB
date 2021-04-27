@@ -32,3 +32,10 @@ https://code-masterjung.tistory.com/91
 
 <br>
 
+### Keyword : mongodb nested
+
+---
+
+✔ read 할 때 들어가는 가공을 create, update, delete 할 때  가공함으로써 읽기 성능 개선을 하였다
+
+✔ 읽기 빈도가 쓰기 빈도보다 훨씬 높기 때문에 계산을 한번 하고 여러번 읽는 작업에서 혜택을 보자는 방향이다

@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
-
+import Blog from '../models/Blog';
+import Comment from '../models/Comment';
 import User from '../models/User';
 
 export const getUser = async (req, res, next) => {
@@ -73,7 +74,15 @@ export const putUser = async (req, res, next) => {
 
     const user = await User.findById(userId);
 
-    if (name) user.name = name;
+    if (name) {
+      user.name = name;
+
+      await Promise.all([
+        // updateMany 사용
+        Blog.updateMany({ 'user._id': userId }, { 'user.name': name }),
+        Comment.updateMany({ 'user._id': userId }, { 'user.name': name }),
+      ]);
+    }
     if (age) user.age = age;
     await user.save();
 

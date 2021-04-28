@@ -61,3 +61,14 @@ https://docs.mongodb.com/manual/reference/operator/update/positional-filtered/
 블로그
 
 https://devyeogoo.tistory.com/3
+
+<br>
+
+### pull, push, $
+---
+
+<br>
+
+블로그
+
+https://www.zerocho.com/category/MongoDB/post/57a46d287c4a5115004e97eb

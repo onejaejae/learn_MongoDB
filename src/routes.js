@@ -9,7 +9,7 @@ const PATCH_BLOG = '/:blogId/live';
 
 // comment
 const COMMENT = '/blog/:blogId/comment';
-const PATCH_COMMENT = '/:commentId';
+const COMMENT_ID = '/:commentId';
 
 const routes = {
   user: USER,
@@ -18,7 +18,7 @@ const routes = {
   blogId: BLOG_ID,
   patchBlog: PATCH_BLOG,
   comment: COMMENT,
-  patchComment: PATCH_COMMENT,
+  commentId: COMMENT_ID,
 };
 
 export default routes;

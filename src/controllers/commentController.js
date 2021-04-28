@@ -98,3 +98,21 @@ export const patchComment = async (req, res, next) => {
     next(error);
   }
 };
+
+export const deleteComment = async (req, res, next) => {
+  try {
+    const {
+      params: { commentId },
+    } = req;
+
+    if (!mongoose.isValidObjectId(commentId)) return res.status(400).send({ err: 'invalid commentId' });
+
+    const [comment] = await Promise.all([
+      Comment.findByIdAndDelete(commentId),
+      Blog.updateOne({ 'comments._id': commentId }, { $pull: { comments: { _id: commentId } } }),
+    ]);
+    return res.status(200).send({ comment });
+  } catch (error) {
+    next(error);
+  }
+};

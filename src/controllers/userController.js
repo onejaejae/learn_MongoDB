@@ -112,7 +112,16 @@ export const deleteUser = async (req, res, next) => {
       return res.status(400).json({ error: 'invalid userId' });
     }
 
-    const user = await User.findByIdAndDelete(userId);
+    const [user] = await Promise.all([
+      User.findByIdAndDelete(userId),
+      Blog.deleteMany({ 'user._id': userId }),
+      Blog.updateMany(
+        { 'comments.user._id': userId },
+        { $pull: { comments: { user: { _id: mongoose.Types.ObjectId(userId) } } } },
+      ),
+      Comment.deleteMany({ 'user._id': userId }),
+    ]);
+
     return res.status(200).json({ success: true, user });
   } catch (error) {
     next(error);

@@ -89,6 +89,7 @@ export const patchComment = async (req, res, next) => {
       // comments 배열의 각 데이터의 id값을 뜻한다
       // comments.$.content의 $는 앞선 조건 { 'comments._id': commentId }을 만족하는 document이다.
       // 즉, 앞선 조건을 만족하는 comments 배열의 content 값을 변경하는 것이다.
+      // 즉, 조건에 맞는 comments 배열 중 하나를 변경
       Blog.updateOne({ 'comments._id': commentId }, { 'comments.$.content': content }),
     ]);
 

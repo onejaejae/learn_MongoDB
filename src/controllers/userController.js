@@ -80,6 +80,16 @@ export const putUser = async (req, res, next) => {
       await Promise.all([
         // updateMany 사용
         Blog.updateMany({ 'user._id': userId }, { 'user.name': name }),
+
+        // comments.$[element].user.name 여기서 element는 comments가 되어 arrayFilters의 filter로 사용된다.
+        // [element]의 element는 개발자 임의로 설정 가능, but arrayFilters의 변수명이랑 같게해야한다.
+        // 즉, comments 배열의 어떤 인덱스의 user.name 값을 name으로 update 하는 것인데 여기서 어떤 인덱스를
+        // 필터링하는 것을 arrayFilters가 수행하고 그것과 일치하는 배열들을 update 해주는 것이다.
+        Blog.updateMany(
+          {},
+          { 'comments.$[element].user.name': name },
+          { arrayFilters: [{ 'element.user._id': userId }] },
+        ),
         Comment.updateMany({ 'user._id': userId }, { 'user.name': name }),
       ]);
     }

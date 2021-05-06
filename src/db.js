@@ -1,5 +1,5 @@
-import mongoose from "mongoose";
-import dotenv from "dotenv";
+import mongoose from 'mongoose';
+import dotenv from 'dotenv';
 
 dotenv.config();
 
@@ -10,7 +10,8 @@ mongoose
     useCreateIndex: true,
     useFindAndModify: false,
   })
-  .then(() => console.log("MongoDB Connected♥"))
+  .then(() => console.log('MongoDB Connected♥'))
   .catch((err) => console.log(err.message));
 
-mongoose.set("debug", true);
+// mongoose debug
+// mongoose.set('debug', true);

@@ -115,10 +115,7 @@ export const deleteUser = async (req, res, next) => {
     const [user] = await Promise.all([
       User.findByIdAndDelete(userId),
       Blog.deleteMany({ 'user._id': userId }),
-      Blog.updateMany(
-        { 'comments.user._id': userId },
-        { $pull: { comments: { user: { _id: mongoose.Types.ObjectId(userId) } } } },
-      ),
+      Blog.updateMany({ 'comments.user._id': userId }, { $pull: { comments: { 'user._id': userId } } }),
       Comment.deleteMany({ 'user._id': userId }),
     ]);
 

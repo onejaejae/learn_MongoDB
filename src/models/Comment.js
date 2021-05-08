@@ -8,6 +8,7 @@ export const commentSchema = new mongoose.Schema(
         required: true,
         // ref는 mongoose.model()의 첫번째 인자와 같아야한다.
         ref: 'user',
+        index: true,
       },
       username: {
         type: String,

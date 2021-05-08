@@ -8,7 +8,7 @@ import userRouter from './routers/userRouter';
 import blogRouter from './routers/blogRouter';
 import commentRouter from './routers/commentRouter';
 import { accessLogStream } from '../config/log';
-import { generateFakeData } from '../faker';
+import { generateFakeData } from '../faker2';
 
 const app = express();
 
@@ -23,7 +23,7 @@ app.use(morgan('common', { stream: accessLogStream }));
 //faker
 
 // const generateFake = async () => {
-//   await generateFakeData(80000, 5, 20);
+//   await generateFakeData(10, 10, 10);
 // };
 // generateFake();
 

@@ -13,7 +13,10 @@ const userSchema = new mongoose.Schema(
     },
 
     // 필수가 아니면 아래와 같은 형태로 작성해도 된다.
-    age: Number,
+    age: {
+      type: Number,
+      index: true,
+    },
     email: String,
   },
   // timestamps는 mongoose가 createAt, updateAt을 자동으로 만들어준다.

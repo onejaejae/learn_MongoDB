@@ -4,7 +4,16 @@ import Blog from '../models/Blog';
 
 export const getBlog = async (req, res, next) => {
   try {
-    let blogs = await Blog.find({}).limit(200);
+    let {
+      query: { page },
+    } = req;
+
+    page = parseInt(page, 10);
+
+    let blogs = await Blog.find({})
+      .sort({ updateAt: -1 })
+      .skip(page * 3)
+      .limit(3);
 
     return res.status(200).json({ blogs });
   } catch (error) {

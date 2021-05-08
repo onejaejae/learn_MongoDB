@@ -37,6 +37,11 @@ const blogSchema = new mongoose.Schema(
   { timestamps: true },
 );
 
+// index 생성
+// 중간에 index를 추가해도 기존 데이터에 모두 index가 적용된다.
+blogSchema.index({ 'user._id': 1, updatedAt: 1 });
+blogSchema.index({ title: 'text', content: 'text' });
+
 // blogSchema.virtual('comments', {
 //   ref: 'comment',
 //   localField: '_id',

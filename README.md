@@ -296,4 +296,19 @@ https://ryu-e.tistory.com/1
 
 ✔ text index는 컬렉션 당 최대 한개까지 가능
 
+<br>
+
+### 부분 Nesting & Pagination을 이용한 고급스러운 API 만들기
+
+---
+
+<br>
+
+😎 세션 소개
+
+1. 후기 pagenation
+
+2. 후기 총 개수
+
+3. 최신 후기 목록들만 내장
 

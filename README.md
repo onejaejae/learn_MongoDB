@@ -312,3 +312,10 @@ https://ryu-e.tistory.com/1
 
 3. 최신 후기 목록들만 내장
 
+📌 countDocuments
+
+``` js
+    const comments = await Comment.find({ blog: blogId }).countDocuments();
+```
+
+위와 같이 `countDocuments함수`를 사용하면, 현재 조건에 맞는 컬럼(도큐먼트)의 갯수를 빠르게 가져올 수 있다.

@@ -23,7 +23,7 @@ app.use(morgan('common', { stream: accessLogStream }));
 //faker
 
 // const generateFake = async () => {
-//   await generateFakeData(10, 10, 10);
+//   await generateFakeData(10, 2, 10);
 // };
 // generateFake();
 

@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 import User from '../models/User';
 import Blog from '../models/Blog';
+import Comment from '../models/Comment';
 
 export const getBlog = async (req, res, next) => {
   try {
@@ -29,7 +30,12 @@ export const getSpecificBlog = async (req, res, next) => {
 
     if (!mongoose.isValidObjectId(blogId)) return res.status(400).send({ err: 'blogId is invalid' });
 
+    // commentCount를 computed Fields하여 기존의 db를 2번 호출하는 형태에서
+    // 1번 호출하는 형태로 변경하였다.
     const blog = await Blog.findById(blogId);
+
+    // const comments = await Comment.find({ blog: blogId }).countDocuments();
+
     return res.status(200).json({ blog });
   } catch (error) {
     next(error);

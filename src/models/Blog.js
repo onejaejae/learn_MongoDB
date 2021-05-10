@@ -32,6 +32,12 @@ const blogSchema = new mongoose.Schema(
       required: true,
       default: false,
     },
+    commentCount: {
+      type: Number,
+      default: 0,
+      required: true,
+    },
+
     comments: [commentSchema],
   },
   { timestamps: true },

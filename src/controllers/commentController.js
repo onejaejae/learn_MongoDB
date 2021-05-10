@@ -37,18 +37,24 @@ export const postComment = async (req, res, next) => {
     if (!user) return res.status(400).send({ err: 'user does not exist' });
 
     const variable = req.body;
-    variable.blog = blog;
+    variable.blog = blogId;
     variable.user = user;
 
     // comment instance 생성, db저장
-    const comment = new Comment(variable);
+    let comment = new Comment(variable);
 
     // Promise.all()을 사용해 Response Time 개선
-    await Promise.all([
-      comment.save(),
-      //$push 사용
-      Blog.updateOne({ _id: blogId }, { $push: { comments: comment } }),
-    ]);
+    // await Promise.all([
+    //   comment.save(),
+    //   //$push 사용
+    //   Blog.updateOne({ _id: blogId }, { $push: { comments: comment } }),
+    // ]);
+
+    blog.commentCount++;
+    blog.comments.push(comment);
+    if (blog.comments.length > 3) blog.comments.shift();
+
+    [comment] = await Promise.all([comment.save(), blog.save()]);
 
     return res.status(200).json({ comment });
   } catch (error) {
@@ -62,9 +68,20 @@ export const getComment = async (req, res, next) => {
       params: { blogId },
     } = req;
 
+    let {
+      // page의 들어오는 값이 없다면 default 값을 0으로 세팅
+      query: { page = 0 },
+    } = req;
+
+    page = parseInt(page);
+    console.log({ page });
+
     if (!mongoose.isValidObjectId(blogId)) return res.status(400).send({ err: 'blogId is invalid' });
 
-    const comment = await Comment.find({ blog: blogId });
+    const comment = await Comment.find({ blog: blogId })
+      .sort({ createdAt: -1 })
+      .skip(page * 3)
+      .limit(3);
 
     res.status(200).json({ comment });
   } catch (error) {

@@ -319,3 +319,14 @@ https://ryu-e.tistory.com/1
 ```
 
 위와 같이 `countDocuments함수`를 사용하면, 현재 조건에 맞는 컬럼(도큐먼트)의 갯수를 빠르게 가져올 수 있다.
+
+<br>
+
+### Transaction
+---
+
+<br>
+
+블로그
+
+https://darrengwon.tistory.com/660

@@ -4,7 +4,11 @@ import Comment from '../models/Comment';
 import User from '../models/User';
 
 export const postComment = async (req, res, next) => {
+  const session = await mongoose.startSession();
+  let comment;
+
   try {
+    //await session.withTransaction(async () => {
     const {
       params: { blogId },
       body: { content, user: userId },
@@ -23,7 +27,7 @@ export const postComment = async (req, res, next) => {
 
     // 배열 해체할당(ES6)
     // Promise.all()을 사용해 Response Time 개선
-    const [blog, user] = await Promise.all([await Blog.findById(blogId), await User.findById(userId)]);
+    const [blog, user] = await Promise.all([await Blog.findById(blogId, {}, {}), await User.findById(userId, {}, {})]);
 
     //없는 blog에 댓글을 달 경우를 방지
     if (!blog) {
@@ -41,7 +45,8 @@ export const postComment = async (req, res, next) => {
     variable.user = user;
 
     // comment instance 생성, db저장
-    let comment = new Comment(variable);
+    comment = new Comment(variable);
+    //await session.abortTransaction()
 
     // Promise.all()을 사용해 Response Time 개선
     // await Promise.all([
@@ -50,15 +55,30 @@ export const postComment = async (req, res, next) => {
     //   Blog.updateOne({ _id: blogId }, { $push: { comments: comment } }),
     // ]);
 
-    blog.commentCount++;
-    blog.comments.push(comment);
-    if (blog.comments.length > 3) blog.comments.shift();
+    // blog.commentCount++;
+    // blog.comments.push(comment);
+    // if (blog.comments.length > 3) blog.comments.shift();
 
-    [comment] = await Promise.all([comment.save(), blog.save()]);
+    // [comment] = await Promise.all([comment.save({}), blog.save()]);
+    //});
+
+    await Promise.all([
+      comment.save(),
+      Blog.updateOne(
+        { _id: blogId },
+        // $slice 이용
+        // ex)
+        // {comments : {$slice : -10}} 나중에 달린댓글 10개 가져오기
+        // {comments : {$slice : 10}} 먼저 달린 댓글 10개 가져오기(댓글 10개 이후 고정)
+        { $inc: { commentCount: 1 }, $push: { comments: { $each: [comment], $slice: -3 } } },
+      ),
+    ]);
 
     return res.status(200).json({ comment });
   } catch (error) {
     next(error);
+  } finally {
+    //await session.endSession();
   }
 };
 

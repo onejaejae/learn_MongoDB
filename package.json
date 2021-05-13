@@ -5,7 +5,7 @@
   "main": "src/server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node src/server.js",
+    "start": "cross-env pm2 start --interpreter babel-node init.js",
     "dev": "nodemon --ignore src/client.js src/server.js --exec babel-node"
   },
   "author": "조원제",

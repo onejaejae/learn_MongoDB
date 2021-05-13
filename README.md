@@ -330,3 +330,34 @@ https://ryu-e.tistory.com/1
 블로그
 
 https://darrengwon.tistory.com/660
+
+<br>
+
+### AWS에 Node.js 백엔드 배포하기
+
+---
+
+📌 배포 flow
+
+<br>
+
+<img src="https://user-images.githubusercontent.com/62149784/117913568-8793d200-b31c-11eb-8acb-3dc34aac07c3.jpg">
+
+
+<br>
+
+✨ Ubuntu 환경 설정
+
+Ubuntu에 node 14 downloads
+
+-   https://computingforgeeks.com/install-node-js-14-on-ubuntu-debian-linux/
+
+=> node를 설치하면 npm도 설치된다.
+
+=> git은 기존에 설치되 있으므로 node, npm, git이 세팅되게 된다.
+
+=> 이후에 git clone으로 AWS pull code 과정을 진행한다.
+
+✔ 자료 출처
+
+https://www.inflearn.com/course/%EB%AA%BD%EA%B3%A0%EB%94%94%EB%B9%84-%EA%B8%B0%EC%B4%88-%EC%8B%A4%EB%AC%B4/lecture/67903?tab=curriculum

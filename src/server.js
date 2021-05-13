@@ -37,6 +37,9 @@ app.use((err, req, res, next) => {
   res.status(500).json({ message: err.message });
 });
 
-app.listen(5000, () => {
-  console.log('Server listening on 5000');
+const { PORT } = process.env;
+if (!PORT) console.error('PORT is required');
+
+app.listen(PORT, () => {
+  console.log(`Server listening on ${PORT}`);
 });

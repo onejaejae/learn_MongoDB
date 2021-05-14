@@ -358,6 +358,78 @@ Ubuntu에 node 14 downloads
 
 => 이후에 git clone으로 AWS pull code 과정을 진행한다.
 
+=> 서버가 다운 될 경우를 대비해서 PM2를 사용했다.
+
+=> 고정 IP 설정
+
+=> https 적용(https를 적용하려면 도메인이 있어야 한다)
+
+<br>
+
+📌 기억할 것
+
+-   노출되지 말아야 할 정보가 github에 노출되었다면 반드시 무효화 처리(개인정보 변경)를 해라!
+
+-    찰나의 순간 노출되었더라도 반드시 무효화 처리를 해야한다!
+
+
 ✔ 자료 출처
 
 https://www.inflearn.com/course/%EB%AA%BD%EA%B3%A0%EB%94%94%EB%B9%84-%EA%B8%B0%EC%B4%88-%EC%8B%A4%EB%AC%B4/lecture/67903?tab=curriculum
+
+<br>
+
+### 무중단 서비스 & 확장성
+
+---
+
+<br>
+
+<img src="https://user-images.githubusercontent.com/62149784/118228069-92896680-b4c4-11eb-9f0b-0a368e84ba5a.jpg">
+
+✨ 서론
+
+요즘 실제로 어플리케이션을 개발해서 서비스할 때, 단순히 하나의 어플리케이션을 구동하는 것이 아니라, 재해, 재난, 장애 등 여러 문제가 발생하여 어플리케이션이 다운되었을 경우 대비해 여러개의 서버에 어플리케이션을 구동시켜서 클러스터링을 통해 대응하는데, 데이터베이스도 마찬가지로 하나의 디비 서버가 죽었을 때를 대비해 복제를 통한 대응을 하려고하는데 기본적으로 몽고 DB에서는 복제의 기능을 지원합니다.
+
+
+<br>
+
+<img src="https://user-images.githubusercontent.com/62149784/118228133-a8972700-b4c4-11eb-9865-8336f974f41b.jpg">
+
+<br>
+
+✔ Replica set
+
+MongoDB에서는 기본적으로 Replication(복제)를 지원합니다. 이는 서비스의 지속성과 안전성(무중단 서비스)을 제공하는 데이터베이스 시스템의 설비이며, MongoDB는 단순하게 데이터 복제를 위한 것뿐만 아니라 Master가 장애시, Slave를 Master로 자동 승격시켜줍니다. 수 많은 Slave 중에서 어떤 것을 Master로 할지를 투표를 통해 결정하게 되는데, MongoDB는 투표에 참여하기만 하는 것으로 Arbiter를 설정할 수 있습니다.
+
+(기본적으로 MongoDB에서는 Master --> Primary노드, Slave --> Secondary노드라고 부르기도 합니다.)
+
+✔ 과부하로 response time이 길어진다면?
+
+<img src="https://user-images.githubusercontent.com/62149784/118230002-eb0e3300-b4c7-11eb-9fae-adb5d452e54f.jpg">
+
+<img src="https://user-images.githubusercontent.com/62149784/118230011-ed708d00-b4c7-11eb-8429-00744c6460ed.jpg">
+
+<br>
+
+📌 자료 출처
+
+https://www.inflearn.com/course/%EB%AA%BD%EA%B3%A0%EB%94%94%EB%B9%84-%EA%B8%B0%EC%B4%88-%EC%8B%A4%EB%AC%B4/lecture/69955?tab=curriculum
+
+https://toma0912.tistory.com/85
+
+https://m.blog.naver.com/PostView.nhn?blogId=dlghks44&logNo=221314300059&proxyReferer=https:%2F%2Fwww.google.com%2F
+
+<br>
+
+### 관계형데이터베이스와 비교하기
+
+<img src="https://user-images.githubusercontent.com/62149784/118233019-58bc5e00-b4cc-11eb-8e19-f426125e1c72.jpg">
+
+<img src="https://user-images.githubusercontent.com/62149784/118233038-5eb23f00-b4cc-11eb-8c5c-519c163043cd.jpg">
+
+<img src="https://user-images.githubusercontent.com/62149784/118233054-62de5c80-b4cc-11eb-9e22-084d28156e73.jpg">
+
+<img src="https://user-images.githubusercontent.com/62149784/118233063-65d94d00-b4cc-11eb-8f27-1e149e72d9ae.jpg">
+
+<img src="https://user-images.githubusercontent.com/62149784/118233078-6a9e0100-b4cc-11eb-92a4-42ac8e5026b9.jpg">

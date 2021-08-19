@@ -1,3 +1,10 @@
+### mongoDB 관련 포스팅
+---
+
+https://kciter.so/posts/about-mongodb
+
+<br>
+
 ### Promise all에 관한 포스팅
 
 ---
@@ -80,6 +87,10 @@ https://www.zerocho.com/category/MongoDB/post/57a46d287c4a5115004e97eb
 
 <br>
 
+<img src="https://user-images.githubusercontent.com/62149784/130087072-2efa3610-7654-449f-81b3-beee9794ee3f.jpg">
+
+<br>
+
 -   관계
 
     - 개별적으로 읽을 때도 있다?
@@ -99,6 +110,10 @@ https://www.zerocho.com/category/MongoDB/post/57a46d287c4a5115004e97eb
 ✔ 위의 질문을 바탕으로 스키마를 발전 시켜나가라
 
 ✔ 기준이 모호하다면 일단 관계로 설정하고 추후에 내장이 필요하다면 내장해라
+
+<br>
+
+<img src="https://user-images.githubusercontent.com/62149784/130087078-62fe7e5b-82e3-4f12-bcc4-7e94b3bc5f50.jpg">
 
 <br>
 
@@ -424,6 +439,8 @@ https://m.blog.naver.com/PostView.nhn?blogId=dlghks44&logNo=221314300059&proxyRe
 
 ### 관계형데이터베이스와 비교하기
 
+<br>
+
 <img src="https://user-images.githubusercontent.com/62149784/118233019-58bc5e00-b4cc-11eb-8e19-f426125e1c72.jpg">
 
 <img src="https://user-images.githubusercontent.com/62149784/118233038-5eb23f00-b4cc-11eb-8c5c-519c163043cd.jpg">
@@ -433,3 +450,10 @@ https://m.blog.naver.com/PostView.nhn?blogId=dlghks44&logNo=221314300059&proxyRe
 <img src="https://user-images.githubusercontent.com/62149784/118233063-65d94d00-b4cc-11eb-8f27-1e149e72d9ae.jpg">
 
 <img src="https://user-images.githubusercontent.com/62149784/118233078-6a9e0100-b4cc-11eb-92a4-42ac8e5026b9.jpg">
+
+### $slice 
+
+---
+
+$each랑 같이 써야함
+https://docs.mongodb.com/manual/reference/operator/update/slice/
